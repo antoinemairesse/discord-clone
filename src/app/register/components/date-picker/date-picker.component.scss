@@ -1,0 +1,17 @@
+.form-birth {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  #day {
+    width: 25%;
+  }
+
+  .mat-form-field {
+    width: 32%;
+  }
+
+  mat-label {
+    color: #72767c;
+  }
+}

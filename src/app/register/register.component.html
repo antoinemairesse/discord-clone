@@ -1,0 +1,36 @@
+<div class="register">
+  <form>
+    <br>
+    <span class="form-title">Créer un compte</span>
+    <br>
+    <div class="form-item">
+      <label class="mb-2" for="email">e-mail</label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="email" type="email">
+    </div>
+    <br>
+    <div class="form-item">
+      <label class="mb-2" for="username">nom d'utilisateur</label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username" type="text">
+    </div>
+    <br>
+    <div class="form-item">
+      <label class="mb-2" for="password">mot de passe</label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="password" type="password">
+    </div>
+    <br>
+    <div class="form-item">
+      <label class="mb-2">date de naissance</label>
+      <app-date-picker></app-date-picker>
+    </div>
+    <button class="btn form-btn" type="submit">Continuer</button>
+    <div class="form-to-login">
+      <a routerLink="/login">Tu as déjà un compte ?</a>
+    </div>
+  </form>
+</div>

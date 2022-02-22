@@ -1,0 +1,23 @@
+<div class="main">
+  <header>
+    <mat-icon>tag</mat-icon>
+    <span>{{channelName}}</span>
+  </header>
+  <div #chat class="chat">
+    <div id="chat">
+      <app-message *ngFor="let message of messages"
+                   [date]="message.date"
+                   [displayName]="message.displayName"
+                   [photoURL]="message.photoURL">
+        {{message.content}}
+      </app-message>
+    </div>
+  </div>
+  <footer>
+    <form [formGroup]="messageForm" (submit)="sendTextMessage()">
+      <input formControlName="message" class="shadow border-gray-700 py-2 px-3 text-gray-700 leading-tight"
+             placeholder="Envoyer un message dans #salon"
+             type="text">
+    </form>
+  </footer>
+</div>

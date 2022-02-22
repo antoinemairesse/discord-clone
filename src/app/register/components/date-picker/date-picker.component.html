@@ -1,0 +1,31 @@
+<div class="form-birth">
+  <mat-form-field appearance="outline" id="day">
+    <mat-label>Sélectionner</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let n of [].constructor(31); let i = index" [value]="i+1">{{i + 1}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sélectionner</mat-label>
+    <mat-select>
+      <mat-option value="01">Janvier</mat-option>
+      <mat-option value="02">Février</mat-option>
+      <mat-option value="03">Mars</mat-option>
+      <mat-option value="04">Avril</mat-option>
+      <mat-option value="05">Mai</mat-option>
+      <mat-option value="06">Juin</mat-option>
+      <mat-option value="07">Juillet</mat-option>
+      <mat-option value="08">Août</mat-option>
+      <mat-option value="09">Septembre</mat-option>
+      <mat-option value="10">Octobre</mat-option>
+      <mat-option value="11">Novembre</mat-option>
+      <mat-option value="12">Décembre</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sélectionner</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let n of [].constructor(year-1899); let i = index" [value]="year-i">{{year - i}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

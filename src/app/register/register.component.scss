@@ -1,0 +1,81 @@
+.register {
+  height: 100vh;
+  width: 100vw;
+  background: url("../../../src/assets/bg.svg") no-repeat center top fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  @apply shadow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 600px;
+  width: 500px;
+  background-color: #36393E;
+  border-radius: 10px;
+
+  .form-title {
+    color: white;
+    font-weight: 600;
+    font-size: 25px;
+  }
+
+  label {
+    color: #B8BBBE;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .form-item {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      background-color: #303338;
+      border-color: black !important;
+      border-width: 0.5px !important;
+    }
+
+    input:focus {
+      outline-color: #01AEF4;
+      outline-style: solid;
+    }
+
+    mat-label {
+      color: #72767C;
+    }
+  }
+
+  .form-btn {
+    background-color: #5765F2;
+    color: white;
+    width: 85%;
+    padding: 10px;
+  }
+
+  .form-to-login {
+    width: 85%;
+
+    a {
+      color: #01AEF4;
+      font-size: 13px;
+      margin-top: 5px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+}

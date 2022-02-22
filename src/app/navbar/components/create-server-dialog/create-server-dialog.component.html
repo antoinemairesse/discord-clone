@@ -1,0 +1,29 @@
+<form [formGroup]="serverForm">
+  <div class="dialog">
+    <div class="title">Personnalise ton serveur</div>
+    <div class="sub-title">Donne une personnalité à ton nouveau serveur en choisissant un nom et une icône. Tu pourras
+      toujours les modifier plus tard.
+    </div>
+    <br>
+    <label for="img-input">
+      <div class="img-input-icon">
+        <mat-icon *ngIf="!imgURL">add_a_photo</mat-icon>
+        <img *ngIf="imgURL" [src]="imgURL">
+        <span>Ajoute une icône !</span>
+      </div>
+      <input #file (change)="preview(file.files)" accept="image/*" formControlName="icon" id="img-input" type="file">
+    </label>
+
+    <div class="form-item">
+      <label class="mb-2" for="server-name">nom du serveur</label>
+      <input class="appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+             formControlName="name"
+             id="server-name" maxlength="50" type="text">
+      <span *ngIf="name && name.invalid && name.touched" class="mat-error">Doit comporter de 3 à 50 caractères.</span>
+    </div>
+  </div>
+  <footer class="dialog-footer">
+    <button (click)="close()" class="btn">Retour</button>
+    <button (click)="createServer()" class="btn btn-blue" type="submit">Créer</button>
+  </footer>
+</form>

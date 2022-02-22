@@ -1,0 +1,47 @@
+<div class="context-menu" id="context-menu-channel">
+  <div (click)="modifyChannel()" class="context-menu-item normal">
+    Modifier le salon
+  </div>
+  <div (click)="deleteChannel()" class="context-menu-item danger">
+    Supprimer le salon
+  </div>
+</div>
+<div class="sidebar">
+  <header>
+    <div>Nom du serveur</div>
+    <button (click)="createChannel()" class="btn btn-blue-sm">
+      <mat-icon>add</mat-icon>
+    </button>
+  </header>
+  <div (cdkDropListDropped)="drop($event)" cdkDropList class="channels">
+    <div (click)="select(c.index)" *ngFor="let c of channels" cdkDrag>
+      <app-channel (contextmenu)="onRightClick($event, c.uid)"
+                   *ngIf="c.type == channelTypes.Audio || c.type == channelTypes.Text" [ChannelName]="c.name"
+                   [ChannelType]="c.type"></app-channel>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-infos">
+      <div class="footer-img">
+        <img (error)="photoURL = defaultPhotoURL" [src]="photoURL" alt="pic">
+      </div>
+      <div class="footer-info">
+        <span *ngIf="displayName" class="footer-info-primary">{{displayName.split(" ")[0]}}</span>
+        <span *ngIf="!displayName" class="footer-info-primary">John Doe</span>
+        <span class="footer-info-sub">#0700</span>
+      </div>
+    </div>
+    <div class="footer-controls">
+      <div class="icon">
+        <mat-icon>mic</mat-icon>
+      </div>
+      <div class="icon">
+        <mat-icon>headset</mat-icon>
+      </div>
+      <div (click)="signOut()" class="icon">
+        <mat-icon>settings</mat-icon>
+      </div>
+    </div>
+  </footer>
+</div>

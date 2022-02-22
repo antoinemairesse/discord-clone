@@ -1,0 +1,155 @@
+@import "../../shared/shared";
+
+.sidebar {
+  @apply w-[245px];
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  background-color: #2E3136;
+}
+
+header {
+  @apply text-white text-base px-6 shadow flex items-center;
+  height: 60px;
+  font-family: 'Lato', sans-serif;
+
+  div {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.channels {
+  overflow-y: scroll;
+  flex-grow: 1;
+}
+
+.footer-img {
+  @apply flex items-center;
+  height: 100%;
+  margin-left: 5%;
+
+  img {
+    margin-top: 5px;
+  }
+}
+
+.footer-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-x: hidden;
+
+  .footer-info-primary {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 80%;
+    color: #DCDDDEFF;
+    font-size: 15px;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-info-sub {
+    line-height: 80%;
+    //background-color: green;
+    letter-spacing: -0.5px;
+    font-family: 'Roboto', sans-serif;
+    color: #B9BBBEFF;
+    font-size: 13px;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+
+}
+
+footer {
+  @apply shadow;
+  background-color: #282B2F;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 50px;
+
+  .footer-img {
+    width: 50px;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  .footer-infos {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+  }
+
+  .footer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #B9BBBEFF;
+    text-align: center;
+
+    mat-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .icon {
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      text-align: center;
+    }
+
+    .icon:hover {
+      cursor: pointer;
+      background-color: #2E3136;
+    }
+  }
+}
+
+.create-channel {
+  padding: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+
+  .create-channel-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: #404449;
+    border-radius: 4px;
+  }
+
+  .create-channel-item:hover {
+    mat-icon {
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  mat-icon {
+    font-size: 1.6rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    color: #B9BBBEFF;
+  }
+
+}

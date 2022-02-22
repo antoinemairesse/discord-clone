@@ -1,0 +1,5 @@
+<div class="channel">
+  <mat-icon *ngIf="ChannelType == channelTypes.Text" style="font-style: italic">tag</mat-icon>
+  <mat-icon *ngIf="ChannelType == channelTypes.Audio">volume_up</mat-icon>
+  <span>{{ChannelName}}</span>
+</div>

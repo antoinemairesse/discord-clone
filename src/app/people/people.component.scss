@@ -1,0 +1,36 @@
+.people {
+  @apply w-[245px] h-screen;
+  background-color: #2E3136;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.people::-webkit-scrollbar {
+  display: none;
+}
+
+.profile {
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px 0 10px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: mediumseagreen;
+
+  span {
+    padding-left: 15px;
+  }
+
+  img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+.profile:hover {
+  background-color: #33363C;
+  cursor: pointer;
+}

@@ -1,0 +1,27 @@
+@import "../../shared/shared";
+
+.navbar_ {
+  @apply flex-col w-[4.35rem] items-center;
+  background-color: #202225;
+  overflow-y: auto;
+  height: 100vh;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.navbar_::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  //transform: translateX(25%);
+  display: flex;
+  justify-content: center;
+
+  * {
+    @apply rounded-2xl my-3 w-[50px] h-[50px] relative flex items-center justify-center shadow-lg bg-gray-700 text-green-500 hover:bg-green-600 hover:text-white hover:rounded-xl transition-all duration-200 ease-linear cursor-pointer;
+  }
+}
+
+.selected {
+  border: 5px solid rgb(16, 185, 129);
+}

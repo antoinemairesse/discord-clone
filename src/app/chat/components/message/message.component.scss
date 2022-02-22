@@ -1,0 +1,39 @@
+.msg {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 20px;
+}
+
+.test {
+  display: flex;
+  padding-left: 20px;
+  padding-right: 4%;
+  text-align: justify;
+  width: 100%;
+  flex-direction: column;
+
+  .name {
+    font-size: 17px;
+    color: mediumseagreen;
+  }
+
+  .message {
+    font-size: 15px;
+    color: #DCDDDEFF;
+  }
+
+  .date {
+    font-size: 12px;
+    padding-left: 5px;
+    color: #72767d;
+  }
+}
+
+img {
+  margin-top: 3px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+

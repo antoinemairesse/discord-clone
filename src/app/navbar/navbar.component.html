@@ -1,0 +1,29 @@
+<div class="navbar_">
+  <div (cdkDropListDropped)="drop($event)" cdkDropList>
+    <div (click)="select(server.index)" (contextmenu)="onRightClick($event, server.doc.uid, i)" *ngFor="let server of servers, let i = index"
+         [matTooltip]="server.name" cdkDrag
+         class="item" matTooltipPosition="right">
+      <img (error)="server.photoURL = defaultPhotoURL" [ngClass]="{'selected': (i == selectedServerIndex)}"
+           [src]="server.photoURL">
+    </div>
+  </div>
+  <div (click)="addServer()" class="item" matTooltip="Ajouter un serveur" matTooltipPosition="right">
+    <mat-icon>add</mat-icon>
+  </div>
+  <div (click)="joinServer()" class="item" matTooltip="Rejoindre un serveur" matTooltipPosition="right">
+    <mat-icon>explore</mat-icon>
+  </div>
+</div>
+
+<div class="context-menu" id="context-menu-server">
+  <div class="context-menu-item normal" [cdkCopyToClipboard]="contextMenuServerUID.toString()">
+    Copier le Code
+    <mat-icon>content_copy</mat-icon>
+  </div>
+  <div (click)="modifyServer()" class="context-menu-item normal">
+    Modifier le serveur
+  </div>
+  <div (click)="deleteServer()" class="context-menu-item danger">
+    Supprimer le serveur
+  </div>
+</div>

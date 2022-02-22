@@ -1,0 +1,29 @@
+.channel {
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #74777B;
+  padding: 15px 15px 15px 15px;
+  letter-spacing: .1rem;
+
+  mat-icon {
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+  }
+
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 8px;
+  }
+}
+
+.channel:hover {
+  background-color: #33363C;
+  cursor: pointer;
+}

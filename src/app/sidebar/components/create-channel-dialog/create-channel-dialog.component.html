@@ -1,0 +1,38 @@
+<form (submit)="createChannel()" [formGroup]="channelForm" class="dialog">
+  <div class="title">Créer un salon textuel</div>
+  <br>
+  <div class="label">type de salon</div>
+  <label class="channel-choice" for="text">
+    <input formControlName="type" id="text" type="radio" value="text">
+    <mat-icon style="font-style: italic">tag</mat-icon>
+    <div class="label-description">
+      <span class="label-description-main">Salon textuel</span>
+      <span
+        class="label-description-sub">Partage des images, des GIFs, des autocollants, tes opinions et tes blagues.</span>
+    </div>
+  </label>
+  <label class="channel-choice" for="audio">
+    <input formControlName="type" id="audio" type="radio" value="audio">
+    <mat-icon>volume_up</mat-icon>
+    <div class="label-description">
+      <span class="label-description-main">Salon vocal</span>
+      <span class="label-description-sub">Rejoins tes amis en vocal, en vidéo et avec le partage d'écran.</span>
+    </div>
+  </label>
+  <div *ngIf="type && type.invalid && type.touched" style="margin-top: 10px; text-align: left">
+    <span class="mat-error">Veuillez choisir une option</span>
+  </div>
+
+  <br>
+  <div class="form-item">
+    <label class="mb-2" for="server-name">nom du salon</label>
+    <input class="appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+           formControlName="name"
+           id="server-name" maxlength="50" placeholder="nouveau-salon" type="text">
+    <span *ngIf="name && name.invalid && name.touched" class="mat-error">Doit comporter de 3 à 50 caractères.</span>
+  </div>
+</form>
+<footer class="dialog-footer">
+  <button (click)="close()" class="btn">Annuler</button>
+  <button (click)="createChannel()" class="btn btn-blue">Créer un salon</button>
+</footer>

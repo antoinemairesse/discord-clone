@@ -1,0 +1,48 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #36393E;
+}
+
+.chat {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+
+header {
+  @apply text-white text-xl px-8 border-gray-700 shadow flex items-center;
+  height: 60px;
+  min-height: 60px;
+  font-family: 'Josefin Sans', sans-serif;
+  mat-icon{
+    font-style: italic;
+  }
+  span{
+    padding-left: 8px;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  height: 45px;
+  width: 100%;
+  margin-bottom: 1rem;
+  font-size: 15px;
+  form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  input {
+    width: 96%;
+    height: 45px;
+    min-height: 45px;
+    border-radius: 12px;
+    background-color: #40444A;
+    color: white;
+    outline: none;
+  }
+}

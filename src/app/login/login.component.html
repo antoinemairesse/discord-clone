@@ -1,0 +1,36 @@
+<div class="login">
+  <form class="">
+    <br><br>
+    <span class="form-title">Ha, te revoilà !</span>
+    <span class="form-sub-title">Nous sommes si heureux de te revoir !</span>
+    <br>
+    <div class="form-item">
+      <label class="mb-2" for="email">e-mail</label>
+      <input
+        autocomplete="on"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Email" type="email">
+    </div>
+    <br>
+    <div class="form-item">
+      <label class="mb-2" for="password">mot de passe</label>
+      <input
+        autocomplete="on"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Mot de passe" type="password">
+    </div>
+    <div class="form-forgot">
+      <a href="">Tu as oublié ton mot de passe ?</a>
+    </div>
+    <br>
+    <button (click)="googleAuth($event)" class="google-btn btn" type="button">
+      <img alt="Google sign-in"
+           src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png">
+      <span>Login with Google</span>
+    </button>
+    <br>
+    <button class="btn form-btn">Se connecter</button>
+    <div class="form-signup">
+      <span>Besoin d'un compte ? </span>
+      <a routerLink="/register">S'inscrire</a>
+    </div>
+  </form>
+</div>
