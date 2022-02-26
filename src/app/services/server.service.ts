@@ -9,6 +9,7 @@ import {getDownloadURL, getStorage, ref, uploadBytes} from "@angular/fire/storag
 import {UserCustom} from "../user";
 import {user} from "@angular/fire/auth";
 import {defaultPhotoURL} from "../../environments/environment";
+import {ImageService} from "./image.service";
 
 export interface Server {
   doc: any,
@@ -28,7 +29,7 @@ export class ServerService {
   notifier: Subject<any> = new Subject<any>();
   selectedServerMembers: BehaviorSubject<UserCustom[]> = new BehaviorSubject<UserCustom[]>([]);
 
-  constructor(private afs: AngularFirestore, private authService: AuthService, private storage: AngularFireStorage) {
+  constructor(private afs: AngularFirestore, private authService: AuthService, private storage: AngularFireStorage, private imageService: ImageService) {
   }
 
   init(): void {
@@ -170,13 +171,9 @@ export class ServerService {
     let uid = this.afs.createId();
     new Promise((resolve) => {
       if (icon) {
-        const storage = getStorage();
-        const storageRef = ref(storage, uid);
-        uploadBytes(storageRef, icon).then((snapshot) => {
-          getDownloadURL(storageRef).then((url) => {
-            resolve(url);
-          })
-        });
+        this.imageService.uploadImage(uid, icon).then(url => {
+          resolve(url);
+        })
       } else {
         resolve(defaultPhotoURL)
       }

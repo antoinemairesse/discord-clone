@@ -7,8 +7,8 @@
     <br>
     <label for="img-input">
       <div class="img-input-icon">
-        <mat-icon *ngIf="!imgURL">add_a_photo</mat-icon>
-        <img *ngIf="imgURL" [src]="imgURL">
+        <mat-icon *ngIf="image.url == ''">add_a_photo</mat-icon>
+        <img *ngIf="image.url != ''" [src]="image.url">
         <span>Ajoute une icône !</span>
       </div>
       <input #file (change)="preview(file.files)" accept="image/*" formControlName="icon" id="img-input" type="file">
