@@ -1,0 +1,6 @@
+<div class="people">
+  <div *ngFor="let member of members" class="profile">
+    <img alt="member_pic" [src]="member.photoURL" (error)="member.photoURL = defaultPhotoURL">
+    <span>{{member.displayName}}</span>
+  </div>
+</div>

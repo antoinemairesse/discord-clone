@@ -79,17 +79,21 @@ export class ServerService {
   getMembers(server: any){
     if(!server) return
     let users: UserCustom[] = []
-    server.users.forEach((member: any) => {
-      member.get().then((next: any) => {
-        users.push({
-          uid: next.data().uid,
-          email: next.data().email,
-          displayName: next.data().displayName,
-          photoURL: next.data().photoURL
+    new Promise(resolve => {
+      server.users.forEach((member: any, i: number) => {
+        member.get().then((next: any) => {
+          users.push({
+            uid: next.data().uid,
+            email: next.data().email,
+            displayName: next.data().displayName,
+            photoURL: next.data().photoURL
+          })
+          if (i+1 == server.users.length) resolve(true);
         })
       })
+    }).then(() => {
+      this.selectedServerMembers.next(users)
     })
-    this.selectedServerMembers.next(users)
   }
 
   selectServer(index: number) {

@@ -7,7 +7,6 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {IndexComponent} from './index/index.component';
 import {ChatComponent} from './chat/chat.component';
-import {PeopleComponent} from './people/people.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from "@angular/material/icon";
 import {ChannelComponent} from './sidebar/components/channel/channel.component';
@@ -32,6 +31,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ModifyServerDialogComponent} from './navbar/components/modify-server-dialog/modify-server-dialog.component';
 import { JoinServerDialogComponent } from './navbar/components/join-server-dialog/join-server-dialog.component';
 import {ClipboardModule} from "@angular/cdk/clipboard";
+import { MembersComponent } from './members/members.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,6 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
     NavbarComponent,
     IndexComponent,
     ChatComponent,
-    PeopleComponent,
     ChannelComponent,
     MessageComponent,
     LoginComponent,
@@ -50,7 +49,8 @@ import {ClipboardModule} from "@angular/cdk/clipboard";
     CreateChannelDialogComponent,
     ModifyChannelDialogComponent,
     ModifyServerDialogComponent,
-    JoinServerDialogComponent
+    JoinServerDialogComponent,
+    MembersComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
