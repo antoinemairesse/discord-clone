@@ -8,6 +8,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CreateChannelDialogComponent} from "./components/create-channel-dialog/create-channel-dialog.component";
 import {ModifyChannelDialogComponent} from "./components/modify-channel-dialog/modify-channel-dialog.component";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
+import { defaultPhotoURL } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,7 +27,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private channelService: ChannelService, private serverService: ServerService, private dialog: MatDialog) {
     this.channelService.init();
-    this.defaultPhotoURL = serverService.defaultPhotoURL;
+    this.defaultPhotoURL = defaultPhotoURL;
   }
 
   ngOnInit(): void {

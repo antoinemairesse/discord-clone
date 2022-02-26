@@ -8,6 +8,7 @@ import {AuthService} from "../services/auth.service";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {ModifyServerDialogComponent} from "./components/modify-server-dialog/modify-server-dialog.component";
 import {JoinServerDialogComponent} from "./components/join-server-dialog/join-server-dialog.component";
+import { defaultPhotoURL } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   contextMenuServerIndex: number = -1;
 
   constructor(private serverService: ServerService, public dialog: MatDialog, private authService: AuthService) {
-    this.defaultPhotoURL = this.serverService.defaultPhotoURL;
+    this.defaultPhotoURL = defaultPhotoURL;
     this.serverService.init();
   }
 

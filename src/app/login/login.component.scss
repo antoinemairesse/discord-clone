@@ -16,16 +16,24 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 530px;
+  padding: 60px 0 60px 0;
   width: 600px;
   background-color: #36393E;
   border-radius: 10px;
 
   label {
     color: #B8BBBE;
-    text-transform: uppercase;
     font-weight: 600;
     font-size: 13px;
+  }
+
+  .label-danger{
+    color: #ED4145 !important;
+  }
+
+  .input-danger{
+    border-color: #ED4145;
+    border-width: 2px;
   }
 
   .form-item {

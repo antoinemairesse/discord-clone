@@ -1,21 +1,27 @@
 <div class="login">
-  <form class="">
-    <br><br>
+  <form [formGroup]="loginForm">
     <span class="form-title">Ha, te revoilà !</span>
     <span class="form-sub-title">Nous sommes si heureux de te revoir !</span>
     <br>
+    <div *ngIf="error" class="alert alert-danger" role="alert">
+      Email ou mot de passe invalide.
+    </div>
     <div class="form-item">
-      <label class="mb-2" for="email">e-mail</label>
+      <label [ngClass]="{'label-danger': error}" class="mb-2" for="email">E-MAIL</label>
       <input
+        [ngClass]="{'input-danger': error}"
+        formControlName="email"
         autocomplete="on"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Email" type="email">
+        class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="Email" type="email">
     </div>
     <br>
     <div class="form-item">
-      <label class="mb-2" for="password">mot de passe</label>
+      <label [ngClass]="{'label-danger': error}" class="mb-2" for="password">MOT DE PASSE</label>
       <input
+        [ngClass]="{'input-danger': error}"
+        formControlName="password"
         autocomplete="on"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Mot de passe" type="password">
+        class="shadow appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="Mot de passe" type="password">
     </div>
     <div class="form-forgot">
       <a href="">Tu as oublié ton mot de passe ?</a>
@@ -27,7 +33,7 @@
       <span>Login with Google</span>
     </button>
     <br>
-    <button class="btn form-btn">Se connecter</button>
+    <button (click)="signIn()" class="btn form-btn">Se connecter</button>
     <div class="form-signup">
       <span>Besoin d'un compte ? </span>
       <a routerLink="/register">S'inscrire</a>

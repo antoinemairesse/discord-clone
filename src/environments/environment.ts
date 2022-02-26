@@ -14,6 +14,8 @@ export const environment = {
   }
 };
 
+export const defaultPhotoURL: string = "https://firebasestorage.googleapis.com/v0/b/discord-clone-420ba.appspot.com/o/default-server-icon.png?alt=media&token=22b079f4-06b8-456b-a36a-4ce66471aa8a";
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

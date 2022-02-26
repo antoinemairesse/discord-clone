@@ -16,7 +16,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 600px;
+  padding: 40px 0 40px 0;
   width: 500px;
   background-color: #36393E;
   border-radius: 10px;
@@ -40,6 +40,7 @@ form {
     flex-direction: column;
 
     input {
+      color: white;
       background-color: #303338;
       border-color: black !important;
       border-width: 0.5px !important;

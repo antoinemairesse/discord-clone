@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Timestamp} from "@angular/fire/firestore";
+import { defaultPhotoURL } from 'src/environments/environment';
 import {ServerService} from "../../../services/server.service";
 
 @Component({
@@ -14,7 +15,7 @@ export class MessageComponent implements OnInit {
   defaultPhotoURL: string = '';
 
   constructor(private serverService: ServerService) {
-    this.defaultPhotoURL = serverService.defaultPhotoURL;
+    this.defaultPhotoURL = defaultPhotoURL
   }
 
   ngOnInit(): void {

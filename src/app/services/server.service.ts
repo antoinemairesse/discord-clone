@@ -8,6 +8,7 @@ import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "@angular/fire/storage";
 import {UserCustom} from "../user";
 import {user} from "@angular/fire/auth";
+import {defaultPhotoURL} from "../../environments/environment";
 
 export interface Server {
   doc: any,
@@ -21,7 +22,6 @@ export interface Server {
   providedIn: 'root'
 })
 export class ServerService {
-  defaultPhotoURL: string = "https://firebasestorage.googleapis.com/v0/b/discord-clone-420ba.appspot.com/o/default-server-icon.png?alt=media&token=22b079f4-06b8-456b-a36a-4ce66471aa8a";
   selectedServer: BehaviorSubject<Server | undefined> = new BehaviorSubject<Server | undefined>(undefined);
   selectedServerIndex: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   servers: BehaviorSubject<Server[]> = new BehaviorSubject<Server[]>([]);
@@ -178,7 +178,7 @@ export class ServerService {
           })
         });
       } else {
-        resolve(this.defaultPhotoURL)
+        resolve(defaultPhotoURL)
       }
     }).then((photoURL) => {
       this.authService.authState.pipe(takeUntil(this.notifier)).subscribe(user => {
