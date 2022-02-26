@@ -10,11 +10,12 @@ import firebase from "firebase/compat";
 })
 export class AuthService {
   userData: any;
-
+  userRef: any;
   constructor(private afs: AngularFirestore, private auth: AngularFireAuth, private router: Router) {
     this.auth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
+        this.userRef = this.afs.collection('users').doc(user.uid).ref;
         localStorage.setItem('user', JSON.stringify(this.userData));
       } else {
         //this.router.navigate(['login']);

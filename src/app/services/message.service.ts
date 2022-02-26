@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {AuthService} from "./auth.service";
-import {arrayUnion, serverTimestamp, Timestamp,} from "@angular/fire/firestore";
+import {arrayUnion, serverTimestamp, Timestamp} from "@angular/fire/firestore";
 
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable, Subject} from "rxjs";
 import {ChannelService} from "./channel.service";
+import {first} from "rxjs/operators";
+import {ServerService} from "./server.service";
 
 export enum MessageType {
   Text,
@@ -25,52 +27,29 @@ export interface Message {
 export class MessageService {
   sender: string = '';
   messages: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
+  notifier: Subject<any> = new Subject<any>();
 
-  constructor(private afs: AngularFirestore, private authService: AuthService, private channelService: ChannelService) {
+  constructor(private afs: AngularFirestore, private authService: AuthService, private channelService: ChannelService, private serverService: ServerService) {
+  }
+
+  init(): void {
+    this.notifier = new Subject<any>();
     this.authService.authState.subscribe(user => {
       if (user) {
         this.sender = user.uid;
       }
     })
-
-    this.channelService.selectedChannel.subscribe( next => {
-      if (next) {
-        let messages: Message[] = [];
-        let index: number = 0;
-        new Promise<Message[]>((resolve) => {
-          if (next.messages.length < 1) {
-            resolve([])
-          }
-          next.messages.forEach((message: any, i: number, array: any[]) => {
-            message.get().then((msg: any) => {
-              if (!msg.data()) {
-                resolve([]);
-                return;
-              }
-              msg.data().sender.get().then((sender: any) => {
-                messages[index] = {
-                  photoURL: sender.data().photoURL,
-                  displayName: sender.data().displayName,
-                  content: msg.data().content,
-                  date: msg.data().date,
-                  type: this.getType(msg.data().type)
-                }
-                index++;
-                if (index === array.length) resolve(messages);
-              })
-            })
-          })
-        }).then((messages: Message[]) => {
-          this.messages.next(messages);
-        })
-      } else {
-        this.messages.next([]);
-      }
-    })
+    this.channelService.selectedChannel.pipe(this.getMessageAndSenderDataFromRef())
+      .subscribe((next: any) => {
+        this.messages.next(this.buildMessageArray(next));
+      })
   }
 
-  destroy(): void{
+
+  destroy(): void {
     this.messages.next([]);
+    this.notifier.next()
+    this.notifier.complete()
   }
 
   getType(type: string) {
@@ -81,13 +60,53 @@ export class MessageService {
     }
   }
 
+  buildMessageArray(data: any): Message[] {
+    let messages: Message[] = [];
+    data.messages.forEach((msg: any) => {
+      messages.push({
+        photoURL: msg.sender.photoURL,
+        displayName: msg.sender.displayName,
+        content: msg.content,
+        date: msg.date,
+        type: this.getType(msg.type)
+      })
+    })
+    return messages;
+  }
+
+  getMessageAndSenderDataFromRef = () => (source: Observable<any>) => new Observable(observer => {
+    let state: boolean = false;
+    return source.pipe().subscribe((next: any) => {
+      if (next && !state) {
+        state = true;
+        let y: number = 0;
+        new Promise(resolve => {
+          this.serverService.selectedServerMembers.pipe(first(res => res.length > 0)).subscribe((res: any) => {
+            next.messages.forEach((message: any, i: number) => {
+              message.get().then((msg: any) => {
+                next.messages[i] = msg.data()
+                next.messages[i].sender = res.find((el: any) => el.uid == msg.data().sender);
+                y++;
+                if (y == next?.messages.length) resolve(true);
+              });
+            })
+          })
+        })
+          .then(() => {
+            observer.next(next);
+            state = false;
+          })
+      }
+    })
+  });
+
   sendTextMessage(uid: string, content: string) {
     if (this.sender == '') {
       return
     }
     let doc = this.afs.doc(`messages/${this.afs.createId()}`);
     doc.set({
-      sender: this.afs.collection('users').doc(this.sender).ref,
+      sender: this.sender,
       content: content,
       type: "text",
       date: serverTimestamp()

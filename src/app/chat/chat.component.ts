@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+    this.messageService.init()
     //scroll to bottom when chat box height changes
     const resizeObserver = new ResizeObserver(entries => {
       if(this.chat){
@@ -40,18 +40,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     this.messageService.messages.pipe(takeUntil(this.notifier)).subscribe((next: any) => {
       if (next) {
-        this.messages = next.sort((a: { date: any; }, b: { date: any; }) => {
-          if(a.date == null){
-            a.date = {seconds: Timestamp.now()}
-          }
-          if(b.date == null){
-            b.date = {seconds: Timestamp.now()}
-          }
-          if (a.date.seconds == b.date.seconds)
-            return 0;
-
-          return a.date.seconds < b.date.seconds ? -1 : 1;
-        })
+        this.messages = next;
 
       }
     })

@@ -49,9 +49,12 @@ export class ChannelService {
   }
 
   destroy(): void {
-    this.channels.next([]);
+    this.selectedChannel.next(undefined)
+    this.selectedChannelIndex.next(0);
+    this.channels.next([])
     this.notifier.next()
     this.notifier.complete()
+    this.server = undefined;
   }
 
   addChannels(server: any) {

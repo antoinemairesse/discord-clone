@@ -6,12 +6,15 @@ import {BehaviorSubject, Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "@angular/fire/storage";
+import {UserCustom} from "../user";
+import {user} from "@angular/fire/auth";
 
 export interface Server {
   doc: any,
   index: number,
   name: string,
   photoURL: string,
+  users: UserCustom[]
 }
 
 @Injectable({
@@ -23,21 +26,24 @@ export class ServerService {
   selectedServerIndex: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   servers: BehaviorSubject<Server[]> = new BehaviorSubject<Server[]>([]);
   notifier: Subject<any> = new Subject<any>();
+  selectedServerMembers: BehaviorSubject<UserCustom[]> = new BehaviorSubject<UserCustom[]>([]);
 
   constructor(private afs: AngularFirestore, private authService: AuthService, private storage: AngularFireStorage) {
   }
 
   init(): void {
     this.notifier = new Subject<any>();
-    let t = localStorage.getItem('selected-server');
-    if (t) {
-      this.selectedServerIndex.next(parseInt(t.toString()));
+
+    let s = localStorage.getItem('selected-server');
+    if (s) {
+      this.selectedServerIndex.next(parseInt(s.toString()));
     }
+
     this.authService.authState.pipe(takeUntil(this.notifier)).subscribe(user => {
       if (user) {
         this.afs.collection(
           'servers',
-          ref => ref.where('members', "array-contains", user.uid)
+          ref => ref.where('members', "array-contains", this.authService.userRef)
         ).valueChanges().pipe(takeUntil(this.notifier)).subscribe((next: any) => {
           let servers: Server[] = [];
           next.forEach((server: any) => {
@@ -45,12 +51,13 @@ export class ServerService {
               doc: server,
               index: servers.length,
               name: server.name,
-              photoURL: server.photoURL
+              photoURL: server.photoURL,
+              users: server.members
             })
           })
           this.servers.next(servers);
-
           let sub = this.selectedServerIndex.subscribe((next: any) => {
+            this.getMembers(servers[next])
             this.selectedServer.next(servers[next]);
           })
           sub.unsubscribe()
@@ -59,18 +66,36 @@ export class ServerService {
     })
   }
 
+  //reset subjects for next user.
   destroy(): void {
-    this.servers.next([]);
-    this.selectedServer.next(undefined);
-    this.selectedServerIndex.next(0);
-
+    this.servers.next([])
+    this.selectedServer.next(undefined)
+    this.selectedServerIndex.next(0)
+    this.selectedServerMembers.next([])
     this.notifier.next()
     this.notifier.complete()
+  }
+
+  getMembers(server: any){
+    if(!server) return
+    let users: UserCustom[] = []
+    server.users.forEach((member: any) => {
+      member.get().then((next: any) => {
+        users.push({
+          uid: next.data().uid,
+          email: next.data().email,
+          displayName: next.data().displayName,
+          photoURL: next.data().photoURL
+        })
+      })
+    })
+    this.selectedServerMembers.next(users)
   }
 
   selectServer(index: number) {
     localStorage.setItem('selected-server', index.toString());
     let sub = this.servers.pipe(takeUntil(this.notifier)).subscribe((servers: any) => {
+      this.getMembers(servers[index].users)
       this.selectedServer.next(servers[index]);
     })
     this.selectedServerIndex.next(index);
@@ -85,7 +110,7 @@ export class ServerService {
           this.authService.authState.subscribe(next => {
             if (next) {
               server.update({
-                members: arrayUnion(next.uid)
+                members: arrayUnion(this.afs.collection('users').doc(next.uid).ref)
               })
             }
           })
@@ -158,8 +183,8 @@ export class ServerService {
             uid: uid,
             name: name,
             photoURL: photoURL,
-            creator: user.uid,
-            members: arrayUnion(user.uid),
+            creator: this.authService.userRef,
+            members: arrayUnion(this.authService.userRef),
             channels: []
           });
         }
