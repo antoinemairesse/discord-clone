@@ -100,7 +100,7 @@ export class ServerService {
   selectServer(index: number) {
     localStorage.setItem('selected-server', index.toString());
     let sub = this.servers.pipe(takeUntil(this.notifier)).subscribe((servers: any) => {
-      this.getMembers(servers[index].users)
+      this.getMembers(servers[index])
       this.selectedServer.next(servers[index]);
     })
     this.selectedServerIndex.next(index);

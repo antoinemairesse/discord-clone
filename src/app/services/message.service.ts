@@ -81,16 +81,22 @@ export class MessageService {
         state = true;
         let y: number = 0;
         new Promise(resolve => {
-          this.serverService.selectedServerMembers.pipe(first(res => res.length > 0)).subscribe((res: any) => {
-            next.messages.forEach((message: any, i: number) => {
-              message.get().then((msg: any) => {
-                next.messages[i] = msg.data()
-                next.messages[i].sender = res.find((el: any) => el.uid == msg.data().sender);
-                y++;
-                if (y == next?.messages.length) resolve(true);
-              });
+          if (next.messages.length <= 0) {
+            resolve(false);
+          } else {
+            this.serverService.selectedServerMembers.pipe(first(res => {
+              return res.length > 0
+            })).subscribe((res: any) => {
+              next.messages.forEach((message: any, i: number) => {
+                message.get().then((msg: any) => {
+                  next.messages[i] = msg.data()
+                  next.messages[i].sender = res.find((el: any) => el.uid == msg.data().sender);
+                  y++;
+                  if (y == next?.messages.length) resolve(true);
+                });
+              })
             })
-          })
+          }
         })
           .then(() => {
             observer.next(next);
