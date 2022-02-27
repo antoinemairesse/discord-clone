@@ -16,7 +16,7 @@
   <footer>
     <form [formGroup]="messageForm" (submit)="sendTextMessage()">
       <input formControlName="message" class="shadow border-gray-700 py-2 px-3 text-gray-700 leading-tight"
-             placeholder="Envoyer un message dans #salon"
+             [placeholder]="'Envoyer un message dans #'+channelName"
              type="text">
     </form>
   </footer>

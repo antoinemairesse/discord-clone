@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {Channel, ChannelService, ChannelType} from "../services/channel.service";
-import {ServerService} from "../services/server.service";
+import {Server, ServerService} from "../services/server.service";
 import {Subject} from "rxjs";
 import {takeUntil} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   channels: Channel[] = [];
   channelTypes = ChannelType;
   selectedChannelUID: number = -1;
-  currentServerUID: string = '';
+  server: Server | undefined;
   notifier: Subject<any> = new Subject<any>();
 
   constructor(private authService: AuthService, private channelService: ChannelService, private serverService: ServerService, private dialog: MatDialog) {
@@ -40,7 +40,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
     this.serverService.selectedServer.pipe(takeUntil(this.notifier)).subscribe((server: any) => {
       if (server) {
-        this.currentServerUID = server.doc.uid;
+        this.server = server;
       }
     })
 
@@ -78,10 +78,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   createChannel() {
-    if (this.currentServerUID != '') {
+    if (this.server) {
       this.dialog.open(CreateChannelDialogComponent, {
         width: '450px',
-        data: this.currentServerUID
+        data: this.server.doc.uid
       })
     }
   }

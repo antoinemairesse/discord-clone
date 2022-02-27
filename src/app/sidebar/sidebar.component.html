@@ -8,7 +8,8 @@
 </div>
 <div class="sidebar">
   <header>
-    <div>Nom du serveur</div>
+    <div *ngIf="!server" >Nom du serveur</div>
+    <div *ngIf="server" >{{server.name}}</div>
     <button (click)="createChannel()" class="btn btn-blue-sm">
       <mat-icon>add</mat-icon>
     </button>
