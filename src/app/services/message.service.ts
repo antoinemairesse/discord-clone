@@ -62,6 +62,7 @@ export class MessageService {
 
   buildMessageArray(data: any): Message[] {
     let messages: Message[] = [];
+    if(!data) return [];
     data.messages.forEach((msg: any) => {
       messages.push({
         photoURL: msg.sender.photoURL,
@@ -102,6 +103,8 @@ export class MessageService {
             observer.next(next);
             state = false;
           })
+      } else if(!next && !state){
+        observer.next(next);
       }
     })
   });
